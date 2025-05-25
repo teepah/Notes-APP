@@ -1,0 +1,36 @@
+function addNote() {
+  const noteText = document.getElementById("noteInput").value.trim();
+  if (noteText === "") return;
+
+  const notes = JSON.parse(localStorage.getItem("notes") || "[]");
+  notes.push(noteText);
+  localStorage.setItem("notes", JSON.stringify(notes));
+
+  document.getElementById("noteInput").value = "";
+  displayNotes();
+}
+
+function deleteNote(index) {
+  const notes = JSON.parse(localStorage.getItem("notes") || "[]");
+  notes.splice(index, 1);
+  localStorage.setItem("notes", JSON.stringify(notes));
+  displayNotes();
+}
+
+function displayNotes() {
+  const notes = JSON.parse(localStorage.getItem("notes") || "[]");
+  const container = document.getElementById("notesContainer");
+  container.innerHTML = "";
+
+  notes.forEach((note, i) => {
+    container.innerHTML += `
+      <div class="note">
+        ${note}
+        <button class="delete-btn" onclick="deleteNote(${i})">X</button>
+      </div>
+    `;
+  });
+}
+
+// Show saved notes on load
+window.onload = displayNotes
