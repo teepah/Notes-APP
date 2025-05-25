@@ -1,4 +1,4 @@
- function addNote() {
+     function addNote() {
   const noteText = document.getElementById("noteInput").value.trim();
   if (noteText === "") return;
 
